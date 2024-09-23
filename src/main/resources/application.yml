@@ -1,0 +1,31 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: decision
+  datasource:
+    url: jdbc:mysql://localhost:3306/decision
+    username: root
+    password: ${MYSQL_PASSWORD}
+
+  cloud:
+    function:
+      #definition: handleCustomerCreated
+      definition: processCustomerCreated
+    stream:
+      bindings:
+        #handleCustomerCreated-in-0:
+        processCustomerCreated-in-0:
+          #destination: customer-topic
+          destination: customer-topic
+        processCustomerCreated-out-0:
+          destination: decision-topic
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
+
+
+
+
